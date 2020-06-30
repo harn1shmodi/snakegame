@@ -1,4 +1,5 @@
-# snakegame
+# Snakegame
+By Harnish Modi
 Simple snake game developed using Python module PyGame.
 
 ![snakegame5ok](https://user-images.githubusercontent.com/30519780/86096733-4d895b00-bad1-11ea-8f5e-96d061305d5c.png)

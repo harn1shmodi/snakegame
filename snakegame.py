@@ -45,6 +45,14 @@ def gameloop() :
     fps = 45
     snake_list = []
     snake_length = 1
+    # Add new variables for second snake
+    second_snake_x = 0
+    second_snake_y = 0
+    second_snake_velocity_x = 0
+    second_snake_velocity_y = 0
+    second_snake_list = []
+    second_snake_length = 3
+
 
     while not exit_game :
         if game_over :
@@ -77,6 +85,24 @@ def gameloop() :
                     if event.key == pygame.K_DOWN :
                         velocity_y = 5
                         velocity_x = 0
+                # New controls for second snake using 1234 keys
+                    elif event.key == pygame.K_1:  # Right
+                        second_snake_velocity_x = init_velocity
+                        second_snake_velocity_y = 0
+                    elif event.key == pygame.K_2:  # Left
+                        second_snake_velocity_x = -init_velocity
+                        second_snake_velocity_y = 0
+                    elif event.key == pygame.K_3:  # Up
+                        second_snake_velocity_y = -init_velocity
+                        second_snake_velocity_x = 0
+                    elif event.key == pygame.K_4:  # Down
+                        second_snake_velocity_y = init_velocity
+                        second_snake_velocity_x = 0
+
+
+            # Second snake movement (new code)
+            second_snake_x += second_snake_velocity_x
+            second_snake_y += second_snake_velocity_y
 
 
             snake_x = snake_x + velocity_x
@@ -101,6 +127,23 @@ def gameloop() :
 
             if snake_x <0 or snake_x > screen_width or snake_y <0 or snake_y > screen_width:
                 game_over = True
+            # Drawing and collision detection for second snake
+            # Similar to first snake, but with separate variables
+            if Score >= 300:  # Activate second snake at score 300
+                # Draw second snake
+                pygame.draw.rect(gameWindow, red, [second_snake_x, second_snake_y, snake_size, snake_size])
+                
+                # Collision detection for second snake
+                # Add logic to detect collisions with boundaries, itself, and first snake
+                
+                # Update second snake list (similar to first snake logic)
+                second_snake_head = []
+                second_snake_head.append(second_snake_x)
+                second_snake_head.append(second_snake_y)
+                second_snake_list.append(second_snake_head)
+                
+                if len(second_snake_list) > second_snake_length:
+                    del second_snake_list[0]
             plot_snake(gamewindow, blue, snake_list, snake_size)
         pygame.display.update()
         clock.tick(fps)
